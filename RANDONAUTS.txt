@@ -1,0 +1,105 @@
+Steps to graph the word vectors of the Randonauts subreddit:
+===
+
+Get software:
+---
+
+$ git clone https://github.com/simonnishi/fatumemeplex.git (private fork of https://github.com/anvaka/pm/)
+$ git clone https://github.com/anvaka/word2vec-graph
+Download GloVe and follow the build instructions. Don't need to bother with running demo.sh unless you want to.
+Get latest /r/randonauts subreddit data (for now BlueSkies sourced it for me as a CSV). Will assume it's called subdata_10_30_2019.csv. Place it in the GloVe folder.
+
+Prepping the CSV file:
+---
+
+Open the CSV file in OpenOffice Calc or Excel etc and delete all the columns except Title and Post Body (TODO: review/discuss this step)
+Delete the 1st line (column headers). Save CSV.
+In VIM I ran the following commands to remove some text/lines of metadata etc I figure we don't need:
+%g/^&amp/d
+%g/^\*Processing img/d
+%g/^http/d
+%g/^\[/d   (for [label](http....) type links on one line
+TODO: remove in-paragraph URLs/links?
+TODO: remove emojis and other stuff?
+%s/"//g
+Save file.
+
+Convert everything to lower case:
+$ tr '[:upper:]' '[:lower:]' < subdata_10_30_2019.csv > subdata_10_30_2019_lower.csv 
+$ vi subdata_10_30_2019_lower.csv 
+
+Dirty hack to remove articles and small words:
+TODO: should really think carefully about what words to exclude...
+:%s/ an / /g
+Repeat for other words like:
+a, the, if, of, in, it, i, at, i'm, was, is, be, am, was, ...
+Also repeat commands for the same words at the beginning of a line with no space:
+:%s/^to //g
+Save
+
+Training the model with GlOve:
+---
+
+cd to GloVe's dir
+$ cp demo.sh randonauts.sh
+$ vi it and:
+Delete the make....fi lines that download text8.zip and unzip it.
+Change CORPUS=text8 to CORPUS=subdata_10_30_2019_lower.csv
+Change MEMORY=4.0 to something lower if you machine doesn't have much memory (my Mac only has 8GB and I was getting Bus Errors when it crashed). I set it to 2.0.
+TODO: Investigate fine-tuning the other parameters
+
+Also I commented out this line:
+ python eval/python/evaluate.py
+Because I was getting this error and didn't yet find the cause:
+
+$ cp vectors.txt ../word2vec-graph/graph-data/
+
+Run word2vec-graph (based on "Local setup" instructions in its README)
+---
+
+Make sure node.js is installed.
+Install https://github.com/spotify/annoy
+
+cd word2vec-graph
+npm install
+python save_text_edges.py --input_vectors graph-data/vectors.txt --out_file graph-data/edges.txt --dimensions 50
+node edges2graph.js graph-data/edges.txt
+Lastly, I changed:
+node --max-old-space-size=12000 layout.js
+to
+node --max-old-space-size=2000 layout.js
+because node crashed with not enough memory :) 
+
+Setup Graph Visualizing
+---
+cd ../pm/
+npm i
+npm start
+Then kill the server with Ctrl+C. build/ subfolder should be created now.
+mkdir -p build/data/randonauts/2019-10-31T00-00-00Z
+cp -rf ../word2vec-graph/graph-data/* ../word2vec-graph/graph-layout/* build/data/randonauts/2019-10-31T00-00-00Z
+
+vi build/data/randonauts/manifest.json and add:
+{
+  "all": [
+    "2019-10-31T00-00-00Z"
+  ],
+  "last": "2019-10-31T00-00-00Z"
+}
+
+vi src/config.js and change:
+export default {
+  dataUrl: '//anvaka.github.io/galactic-data/'
+};
+to
+export default {
+  dataUrl: '/data/'
+};
+
+npm start
+
+Open in browser!
+http://127.0.0.1:8081/#/galaxy/randonauts?l=1
+
+If can't see nicely:
+http://127.0.0.1:8081/#/galaxy/randonauts?cx=137&cy=-1184&cz=-693&lx=-0.4624&ly=-0.0893&lz=-0.0134&lw=0.8820&ml=150&s=1.75&l=1&v=2019-10-31T00-00-00Z
