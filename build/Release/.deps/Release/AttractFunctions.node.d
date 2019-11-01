@@ -1,0 +1,1 @@
+cmd_Release/AttractFunctions.node := ln -f "Release/obj.target/AttractFunctions.node" "Release/AttractFunctions.node" 2>/dev/null || (rm -rf "Release/AttractFunctions.node" && cp -af "Release/obj.target/AttractFunctions.node" "Release/AttractFunctions.node")
