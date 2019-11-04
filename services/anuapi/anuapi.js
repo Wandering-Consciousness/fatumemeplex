@@ -111,6 +111,10 @@ if (big_query != 0 && small_query == 0){
 } //End if beginning checks
 } //End Function
 
+
+
+
+  
 //Used for calling ANU Quantum Random Numbers Server
 function callanu(size, length, url, callback){
   https.get(url, function(res){
@@ -143,10 +147,7 @@ function callanu(size, length, url, callback){
           } else {
              pool += object_entropy.substring(size, object_entropy.length); 
           }
-          if(pool.length > 1000000){
-              savePool();
-          }
-
+          
           var entropy_size = entropy.length;
 
           var myObj = {
@@ -196,9 +197,6 @@ for (i = 0; i < big_query; i++) {
           pool = results_anu.substring(size, results_anu.length); 
         } else {
           pool += results_anu.substring(size, results_anu.length); 
-        }
-        if(pool.length > 1000000){
-            savePool();
         }
           
         var entropy_size = entropy.length;
@@ -254,10 +252,7 @@ for (i = 0; i < big_query; i++) {
               } else {
                 pool += results_anu.substring(size, results_anu.length); 
               }
-              if(pool.length > 1000000){
-                 savePool();
-              }
-
+          
               var entropy_size = entropy.length;
 
               var myObj = {
@@ -376,7 +371,7 @@ var myObj = {
     PoolSize: length_pool,
     PoolEntropy: pool
   }
-pool = undefined;
+
 //Write file to disk by GID
 fs.writeFile ('./services/entropy/'+gid+".hex", JSON.stringify(myObj, null, 2), function(err) {
 if (err) throw err;
@@ -385,32 +380,6 @@ if (err) throw err;
 
 }
 
-//Used for getting entropy with GID
-function savePool(){
-var timestamp = Date.now(); 
-if(pool == undefined){
-  gid = 0;
-  var length_pool = 0;
-} else {
-  var gid = crypto.createHash('sha256').update(pool).digest('hex');
-
-  var length_pool = pool.length;
-}
-
-var myObj = {
-    GidCurrentPool: gid,
-    TimestampReqeustPool: timestamp,
-    PoolSize: length_pool,
-    PoolEntropy: pool
-  }
-pool = undefined;
-//Write file to disk by GID
-fs.writeFile ('./services/entropy/'+gid+".hex", JSON.stringify(myObj, null, 2), function(err) {
-if (err) throw err;
-  console.log('Pool Saved');
-});
-
-}
 
 
 //end FS

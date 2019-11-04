@@ -1,7 +1,7 @@
 'use strict';
 const path = require('path');
 const addon = require(path.join(process.cwd(), '/build/Release/AttractFunctions'));
-//const addon = require('../build/Release/libAttractFunctions'); -> Windows import
+//const addon = require('../build/Release/libAttractFunctions');
 const qrng = require(path.join(process.cwd(), "/services/anuapi/anuapi.js"));
 const crypto = require('crypto');
 const { fork } = require('child_process');
