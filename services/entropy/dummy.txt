@@ -1,0 +1,1 @@
+Leave this file in git so the entropy folder is committed. Empty folders aren't committed to git.
