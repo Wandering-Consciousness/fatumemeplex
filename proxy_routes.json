@@ -1,0 +1,16 @@
+{
+  "routes": [
+    {
+      "route": "/api",
+      "address": "http://localhost:3000"
+    },
+    {
+        "route": "/anu",
+        "address": "http://qrng.anu.edu.au:80/"
+    },
+    {
+      "route": "/*",
+      "address": "http://localhost:8081"
+    }
+  ]
+}
