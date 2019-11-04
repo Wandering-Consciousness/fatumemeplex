@@ -1,8 +1,9 @@
 {
-  "name": "pmviz",
+  "name": "randoapp",
   "version": "1.0.0",
-  "description": "Visualization of common package managers",
+  "description": "Fatumemplex 3D word vector graph + REST API for Newton Lib",
   "main": "index.js",
+  "gypfile": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "mkdir -p ./build && cp ./src/index.html ./build/ && webpack -p --config webpack.production.config.js",
@@ -10,27 +11,14 @@
     "dev-server": "PORT=8080 node dev-server.js",
     "start": "concurrently --kill-others \"npm run app\" \"npm run dev-server\""
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/anvaka/pm.git"
+  "pkg": {
+    "scripts": [
+      "services/**/*.js",
+      "controllers/*.js"
+    ]
   },
-  "keywords": [
-    "ngraph",
-    "visualization",
-    "package",
-    "managers",
-    "npm",
-    "bower",
-    "cpan",
-    "composer",
-    "go"
-  ],
-  "author": "Andrei Kashcha",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/anvaka/pm/issues"
-  },
-  "homepage": "https://github.com/anvaka/pm",
+  "author": "David Falcon",
+  "license": "ISC",
   "devDependencies": {
     "express": "^4.12.3",
     "ngraph.generators": "0.0.15",

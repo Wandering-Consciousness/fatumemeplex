@@ -4,31 +4,31 @@ const todoList = require('../controllers/Controller');
 module.exports = function(app) {
  
   //GET route for version
-  app.route('/Version')
+  app.route('/api/Version')
   	.get(todoList.list_version);
   
   //GET route for sizes
-  app.route('/sizes')
+  app.route('/api/sizes')
     .get(todoList.sizes);
 
   //GET for the running the pseudo instance
-  app.route('/pseudo')
+  app.route('/api/pseudo')
     .get(todoList.psuedo);
 
   //POST for the setting own entropy
-  app.route('/setentropy')
+  app.route('/api/setentropy')
     .post(todoList.setentropy);
 
   //GET for getting entropy
-  app.route('/entropy')
+  app.route('/api/entropy')
     .get(todoList.entropy);
 
   //GET for getting pool
-  app.route('/pool')
+  app.route('/api/pool')
     .get(todoList.getPool);
 
   //GET for getting attractors
-  app.route('/attractors')
+  app.route('/api/attractors')
     .get(todoList.attractors);
 
 };
