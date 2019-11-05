@@ -28,6 +28,7 @@
     "webpack-dev-server": "^1.9.0"
   },
   "dependencies": {
+    "concurrently": "^5.0.0",
     "babel-core": "^5.2.17",
     "babel-loader": "^5.0.0",
     "binding": "^3.0.3",
