@@ -5,7 +5,7 @@ var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Where to listen for the dev server
-var port = 8080;// = process.env.PORT || 8080;
+var port = 8081;// = process.env.PORT || 8080;
 
 // For more information, see: http://webpack.github.io/docs/configuration.html
 module.exports = {
