@@ -9,7 +9,7 @@
     "build": "mkdir -p ./build && cp ./src/index.html ./build/ && webpack -p --config webpack.production.config.js",
     "app": "node app.js",
     "dev-server": "node dev-server.js",
-    "proxy": "PORT=8080 node proxy.js",
+    "proxy": "node proxy.js",
     "start": "concurrently --kill-others \"npm run proxy\" \"npm run app\" \"npm run dev-server\""
   },
   "pkg": {
