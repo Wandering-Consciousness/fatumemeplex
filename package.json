@@ -7,10 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "mkdir -p ./build && cp ./src/index.html ./build/ && webpack -p --config webpack.production.config.js",
-    "app": "node app.js",
-    "dev-server": "node dev-server.js",
-    "proxy": "node proxy.js",
-    "start": "concurrently --kill-others \"npm run proxy\" \"npm run app\" \"npm run dev-server\""
+    "start": "PORT=7000 node dev-server.js"
   },
   "pkg": {
     "scripts": [

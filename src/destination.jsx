@@ -21,13 +21,6 @@ export default class Destination extends React.Component {
     return (
   <a className='media col-md-6 col-lg-4' href={props.href}
      onMouseEnter={x.setHoverOn.bind(x)} onMouseLeave={x.setHoverOff.bind(x)}>
-    <div className='media-left'>
-      <img className='media-object'
-           width='150px'
-           height='93px'
-           src={imageSrc}
-           alt={props.name}/>
-    </div>
     <div className='media-body'>
       <h4 className='media-heading'>{props.name}</h4>
       {props.description}
