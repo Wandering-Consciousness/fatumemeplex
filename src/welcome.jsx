@@ -5,12 +5,15 @@ export default class WelcomePage extends React.Component {
   render() {
     return (
       <div className='container'>
-        <h1>Welcome to the Fatum Project Memeplex</h1>
-        <h2>Choose your destination:</h2>
+        <h1>Welcome to the Randonauts Memeplex</h1>
+        <h2>Fly through 3D vector space and explore the relationships of all the words</h2>
         <div className='media-list'>
-          <Destination description='Fly through a 3D vector space and explore the relationships of all the words in /r/randonauts subreddit posts!'
-                      href='#/galaxy/randonauts?cx=3490&cy=-3185&cz=-1304&lx=-0.3336&ly=0.4104&lz=-0.3886&lw=0.7544&ml=150&s=1.75&l=1&v=2019-10-31T00-00-00Z'
-                      name='Randonauts'/>
+          <Destination description='The main Randonaut community forum with questions, discussions and detailed reports of trips'
+                      href='#/galaxy/randonauts?l=1&cz=4000'
+                      name='/r/randonauts subreddit'/>
+          <Destination description='Trip reports submitted via the bot'
+                      href='#/galaxy/randonaut_reports?l=1&cy=-900&cz=5000'
+                      name='/r/randonaut_reports subreddit'/>
         </div>
       </div>
     );
